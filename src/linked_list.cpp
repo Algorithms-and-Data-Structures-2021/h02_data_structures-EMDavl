@@ -30,14 +30,11 @@ namespace itis {
             head_ = n;
         }else if(index == size_){
             Node *n = new Node(e, nullptr);
+            tail_->next = n;
             tail_ = n;
         }else{
-            Node *n = new Node(Element::UNINITIALIZED, head_->next);
-            for (int i = 0; i < index - 1; ++i) {
-                n = n->next;
-            }
-            Node *nn = new Node(e, n->next->next);
-            n->next = nn;
+            Node *n = new Node(e, find_node(index));
+            find_node(index-1)->next = n;
         }
         size_++;
     }

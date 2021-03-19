@@ -11,13 +11,8 @@ namespace itis {
         if (head_ == nullptr) {
             head_ = new Node(e, nullptr);
         } else {
-            Node *n = head_;
-            for (int i = 0; i < size_ - 1; ++i) {
-                n = n->next;
-            }
-            Node *newNode = new Node(e, nullptr);
-            n->next = newNode;
-            tail_ = newNode;
+            tail_->next = new Node(e, nullptr);
+            tail_ = tail_->next;
         }
         size_++;
     }
@@ -29,12 +24,11 @@ namespace itis {
             Node *n = new Node(e, head_);
             head_ = n;
         }else if(index == size_){
-            Node *n = new Node(e, nullptr);
-            tail_->next = n;
-            tail_ = n;
+
+            tail_->next = new Node(e, nullptr);
+            tail_ = tail_->next;
         }else{
-            Node *n = new Node(e, find_node(index));
-            find_node(index-1)->next = n;
+            find_node(index-1)->next = new Node(e, find_node(index));
         }
         size_++;
     }

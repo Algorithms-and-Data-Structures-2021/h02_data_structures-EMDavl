@@ -45,7 +45,7 @@ namespace itis {
 
         if(size_ == capacity_) resize(capacity_ + kCapacityGrowthCoefficient);
         assert(size_ < capacity_);  // я ни в коем случае не дам вам совершить ошибку всей вашей жизни
-        std::copy(data_ + index, data_ + size_ + 1, data_ + index + 1);
+        std::copy(data_ + index, data_ + size_, data_ + index + 1);
         data_[index] = e;
         size_++;
     }
@@ -58,7 +58,7 @@ namespace itis {
     Element ArrayList::Remove(int index) {
         internal::check_out_of_range(index, 0, size_);
 
-        Element *elem = new Element;
+        auto *elem = new Element;
         *elem = data_[index];
         std::copy(data_ + index + 1, data_ + size_, data_ + index);
         data_[size_ - 1] = Element::UNINITIALIZED;

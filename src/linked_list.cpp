@@ -9,7 +9,7 @@ namespace itis {
 
     void LinkedList::Add(Element e) {
         if (head_ == nullptr) {
-            head_ = new Node(e, tail_);
+            head_ = new Node(e, nullptr);
             tail_ = head_;
         } else {
             tail_->next = new Node(e, nullptr);
@@ -20,7 +20,6 @@ namespace itis {
 
     void LinkedList::Insert(int index, Element e) {
         internal::check_out_of_range(index, 0, size_ + 1);
-        if (size_ == 0 && index != 0) return;
         if (index == 0) {
             head_ = new Node(e, head_);
         } else if (index == size_) {
@@ -58,6 +57,7 @@ namespace itis {
             n = n->next;
             delete n2;
         }
+        delete n;
         size_ = 0;
         head_ = nullptr;
         tail_ = nullptr;

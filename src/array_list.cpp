@@ -58,12 +58,11 @@ namespace itis {
     Element ArrayList::Remove(int index) {
         internal::check_out_of_range(index, 0, size_);
 
-        auto *elem = new Element;
-        *elem = data_[index];
+        Element e = data_[index];
         std::copy(data_ + index + 1, data_ + size_, data_ + index);
         data_[size_ - 1] = Element::UNINITIALIZED;
         size_--;
-        return *elem;
+        return e;
     }
 
     void ArrayList::Clear() {

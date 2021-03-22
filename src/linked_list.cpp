@@ -9,7 +9,8 @@ namespace itis {
 
     void LinkedList::Add(Element e) {
         if (head_ == nullptr) {
-            head_ = new Node(e, nullptr);
+            head_ = new Node(e, tail_);
+            tail_ = head_;
         } else {
             tail_->next = new Node(e, nullptr);
             tail_ = tail_->next;
@@ -19,16 +20,14 @@ namespace itis {
 
     void LinkedList::Insert(int index, Element e) {
         internal::check_out_of_range(index, 0, size_ + 1);
-        if(size_ == 0 && index != 0) return;
-        if(index == 0){
-            Node *n = new Node(e, head_);
-            head_ = n;
-        }else if(index == size_){
-
+        if (size_ == 0 && index != 0) return;
+        if (index == 0) {
+            head_ = new Node(e, head_);
+        } else if (index == size_) {
             tail_->next = new Node(e, nullptr);
             tail_ = tail_->next;
-        }else{
-            find_node(index-1)->next = new Node(e, find_node(index));
+        } else {
+            find_node(index - 1)->next = new Node(e, find_node(index));
         }
         size_++;
     }
@@ -41,11 +40,11 @@ namespace itis {
     Element LinkedList::Remove(int index) {
         internal::check_out_of_range(index, 0, size_);
         Node *n = head_;
-        if(index == 0){
+        if (index == 0) {
             head_ = head_->next;
-        }else{
+        } else {
             n = find_node(index);
-            find_node(index-1)->next = n->next;
+            find_node(index - 1)->next = n->next;
         }
         size_--;
         return n->data;
@@ -71,8 +70,8 @@ namespace itis {
 
     int LinkedList::IndexOf(Element e) const {
         Node *n = head_;
-        for(int i = 0; i < size_; i++){
-            if(n->data == e) return i;
+        for (int i = 0; i < size_; i++) {
+            if (n->data == e) return i;
             n = n->next;
         }
         return -1;

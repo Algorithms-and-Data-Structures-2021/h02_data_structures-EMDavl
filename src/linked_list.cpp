@@ -39,14 +39,19 @@ namespace itis {
     Element LinkedList::Remove(int index) {
         internal::check_out_of_range(index, 0, size_);
         Node *n = head_;
+        Element e;
         if (index == 0) {
             head_ = head_->next;
+            e = n->data;
+            delete n;
         } else {
             n = find_node(index);
             find_node(index - 1)->next = n->next;
+            e = n->data;
+            delete n;
         }
         size_--;
-        return n->data;
+        return e;
     }
 
     void LinkedList::Clear() {
